@@ -1,14 +1,14 @@
 package com.brigido.senior.entity;
 
-import com.brigido.senior.dto.VoteRequestDTO;
+import com.brigido.senior.dto.update.UpdateVoteDTO;
+import com.brigido.senior.enumeration.VoteEnum;
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter @Setter
+@AllArgsConstructor @NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "vote")
@@ -17,9 +17,12 @@ public class Vote {
     @GeneratedValue
     private UUID id;
 
-    //VALIDAR TIPAGEM
-    private String vote;
-    private Date voteAt;
+    @Enumerated(EnumType.STRING)
+    private VoteEnum voteEnum;
+
+    private LocalDateTime voteAt;
+
+    private LocalDateTime updatedAt;
 
     @ManyToOne
     private Schedule schedule;
@@ -27,8 +30,16 @@ public class Vote {
     @ManyToOne
     private Associate associate;
 
-    public void update(VoteRequestDTO voteRequestDTO) {
-        this.vote = voteRequestDTO.getVote();
+    @PrePersist
+    protected void onCreate() {
+        LocalDateTime currentDate = LocalDateTime.now();
+        voteAt = currentDate;
+        updatedAt = currentDate;
+    }
+
+    public void update(UpdateVoteDTO updateVoteDTO) {
+        voteEnum = updateVoteDTO.getVoteEnum();
+        updatedAt = LocalDateTime.now();
     }
 }
 

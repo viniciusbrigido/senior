@@ -1,15 +1,21 @@
 package com.brigido.senior.service.impl;
 
-import com.brigido.senior.dto.VoteRequestDTO;
-import com.brigido.senior.dto.VoteResponseDTO;
-import com.brigido.senior.entity.Vote;
+import com.brigido.senior.dto.query.ResponseAssociateVoteDTO;
+import com.brigido.senior.dto.query.VotesPerScheduleFilterDTO;
+import com.brigido.senior.dto.save.SaveVoteDTO;
+import com.brigido.senior.dto.response.ResponseVoteDTO;
+import com.brigido.senior.dto.update.UpdateVoteDTO;
+import com.brigido.senior.entity.*;
+import com.brigido.senior.exception.*;
 import com.brigido.senior.repository.VoteRepository;
-import com.brigido.senior.service.VoteService;
+import com.brigido.senior.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import static com.brigido.senior.rest.CpfRest.*;
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -19,42 +25,78 @@ public class VoteServiceImpl implements VoteService {
     private VoteRepository voteRepository;
 
     @Autowired
+    private AssociateService associateService;
+
+    @Autowired
+    private ScheduleService scheduleService;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
-    public VoteResponseDTO findByIdDTO(UUID id) {
-        return modelMapper.map(findById(id), VoteResponseDTO.class);
+    public ResponseVoteDTO findByIdDTO(UUID id) {
+        return toResponseDto(findById(id));
     }
 
     @Override
     public Vote findById(UUID id) {
         return voteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Voto não encontrada."));
+                .orElseThrow(() -> new NotFoundEntityException("Vote not found."));
     }
 
     @Override
-    public VoteResponseDTO save(VoteRequestDTO voteRequestDTO) {
-        Vote vote = modelMapper.map(voteRequestDTO, Vote.class);
-        return modelMapper.map(voteRepository.save(vote), VoteResponseDTO.class);
+    public ResponseVoteDTO save(SaveVoteDTO saveVoteDTO) {
+        Vote vote = modelMapper.map(saveVoteDTO, Vote.class);
+        Associate associate = associateService.findById(saveVoteDTO.getAssociateId());
+        validateAssociate(associate);
+        vote.setAssociate(associate);
+
+        Schedule schedule = scheduleService.findById(saveVoteDTO.getScheduleId());
+        validateSchedule(schedule);
+        vote.setSchedule(schedule);
+
+        return toResponseDto(voteRepository.save(vote));
+    }
+
+    private void validateAssociate(Associate associate) {
+        if (!isCpfWithPermissionToVote(associate.getCpf())) {
+            throw new InvalidCpfException("CPF without voting permission.");
+        }
+    }
+
+    private void validateSchedule(Schedule schedule) {
+        LocalDateTime currentDate = LocalDateTime.now();
+        if (!(currentDate.isAfter(schedule.getInitDate()) && currentDate.isBefore(schedule.getEndDate()))) {
+            throw new ScheduleDateExpiredException("Schedule date expired.");
+        }
     }
 
     @Override
-    public List<VoteResponseDTO> findAll() {
+    public List<ResponseVoteDTO> findAll() {
         return voteRepository.findAll()
                 .stream()
-                .map(vote -> modelMapper.map(vote, VoteResponseDTO.class))
+                .map(this::toResponseDto)
                 .collect(toList());
     }
 
     @Override
-    public VoteResponseDTO update(UUID id, VoteRequestDTO voteRequestDTO) {
-        Vote vote = findById(id);
-        vote.update(voteRequestDTO);
-        return modelMapper.map(vote, VoteResponseDTO.class);
+    public ResponseVoteDTO update(UpdateVoteDTO updateVoteDTO) {
+        Vote vote = findById(updateVoteDTO.getId());
+        vote.update(updateVoteDTO);
+        return toResponseDto(voteRepository.save(vote));
     }
 
     @Override
     public void delete(UUID id) {
         voteRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ResponseAssociateVoteDTO> findVotesPerSchedule(VotesPerScheduleFilterDTO votesPerScheduleFilterDTO) {
+        return voteRepository.findVotesPerSchedule(votesPerScheduleFilterDTO);
+    }
+
+    private ResponseVoteDTO toResponseDto(Vote vote) {
+        return modelMapper.map(vote, ResponseVoteDTO.class);
     }
 }

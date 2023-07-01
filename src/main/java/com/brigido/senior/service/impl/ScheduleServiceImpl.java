@@ -1,15 +1,16 @@
 package com.brigido.senior.service.impl;
 
-import com.brigido.senior.dto.ScheduleRequestDTO;
-import com.brigido.senior.dto.ScheduleResponseDTO;
+import com.brigido.senior.dto.save.SaveScheduleDTO;
+import com.brigido.senior.dto.response.ResponseScheduleDTO;
+import com.brigido.senior.dto.update.UpdateScheduleDTO;
 import com.brigido.senior.entity.Schedule;
+import com.brigido.senior.exception.NotFoundEntityException;
 import com.brigido.senior.repository.ScheduleRepository;
 import com.brigido.senior.service.ScheduleService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -22,39 +23,43 @@ public class ScheduleServiceImpl implements ScheduleService {
     private ModelMapper modelMapper;
 
     @Override
-    public ScheduleResponseDTO findByIdDTO(UUID id) {
-        return modelMapper.map(findById(id), ScheduleResponseDTO.class);
+    public ResponseScheduleDTO findByIdDTO(UUID id) {
+        return toResponseDto(findById(id));
     }
 
     @Override
     public Schedule findById(UUID id) {
         return scheduleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pauta não encontrada."));
+                .orElseThrow(() -> new NotFoundEntityException("Schedule not found."));
     }
 
     @Override
-    public ScheduleResponseDTO save(ScheduleRequestDTO scheduleRequestDTO) {
-        Schedule schedule = modelMapper.map(scheduleRequestDTO, Schedule.class);
-        return modelMapper.map(scheduleRepository.save(schedule), ScheduleResponseDTO.class);
+    public ResponseScheduleDTO save(SaveScheduleDTO saveScheduleDTO) {
+        Schedule schedule = modelMapper.map(saveScheduleDTO, Schedule.class);
+        return toResponseDto(scheduleRepository.save(schedule));
     }
 
     @Override
-    public List<ScheduleResponseDTO> findAll() {
+    public List<ResponseScheduleDTO> findAll() {
         return scheduleRepository.findAll()
                 .stream()
-                .map(schedule -> modelMapper.map(schedule, ScheduleResponseDTO.class))
+                .map(this::toResponseDto)
                 .collect(toList());
     }
 
     @Override
-    public ScheduleResponseDTO update(UUID id, ScheduleRequestDTO scheduleRequestDTO) {
-        Schedule schedule = findById(id);
-        schedule.update(scheduleRequestDTO);
-        return modelMapper.map(schedule, ScheduleResponseDTO.class);
+    public ResponseScheduleDTO update(UpdateScheduleDTO updateScheduleDTO) {
+        Schedule schedule = findById(updateScheduleDTO.getId());
+        schedule.update(updateScheduleDTO);
+        return toResponseDto(scheduleRepository.save(schedule));
     }
 
     @Override
     public void delete(UUID id) {
         scheduleRepository.deleteById(id);
+    }
+
+    private ResponseScheduleDTO toResponseDto(Schedule schedule) {
+        return modelMapper.map(schedule, ResponseScheduleDTO.class);
     }
 }

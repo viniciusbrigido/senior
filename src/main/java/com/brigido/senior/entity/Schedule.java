@@ -1,12 +1,14 @@
 package com.brigido.senior.entity;
 
-import com.brigido.senior.dto.ScheduleRequestDTO;
+import com.brigido.senior.dto.update.UpdateScheduleDTO;
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.Date;
-import java.util.UUID;
+import java.time.LocalDateTime;
+import java.util.*;
+import static java.util.Objects.*;
+import static java.util.Optional.*;
 
-@Getter
+@Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 @Builder
 @Entity
@@ -22,13 +24,28 @@ public class Schedule {
 
     private String description;
 
-    @Column(nullable = false, name = "create_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createAt;
+    @Column(nullable = false, name = "init_date")
+    private LocalDateTime initDate;
 
-    public void update(ScheduleRequestDTO scheduleRequestDTO) {
-        this.title = scheduleRequestDTO.getTitle();
-        this.description = scheduleRequestDTO.getDescription();
+    @Column(name = "end_date")
+    private LocalDateTime endDate;
+
+    @Transient
+    private Integer minutes;
+
+    @PrePersist
+    protected void onCreate() {
+        ofNullable(initDate).orElseGet(() -> initDate = LocalDateTime.now());
+        ofNullable(endDate).orElseGet(() -> endDate = initDate.plusMinutes(ofNullable(minutes).orElse(1)));
+    }
+
+    public void update(UpdateScheduleDTO updateScheduleDTO) {
+        title = ofNullable(updateScheduleDTO.getTitle()).orElse(title);
+        description = ofNullable(updateScheduleDTO.getDescription()).orElse(description);
+        if (nonNull(updateScheduleDTO.getInitDate())) {
+            initDate = updateScheduleDTO.getInitDate();
+            endDate = initDate.plusMinutes(ofNullable(minutes).orElse(1));
+        }
     }
 }
 

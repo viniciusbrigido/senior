@@ -1,11 +1,11 @@
 package com.brigido.senior.entity;
 
-import com.brigido.senior.dto.AssociateRequestDTO;
+import com.brigido.senior.dto.update.UpdateAssociateDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.UUID;
 
-@Getter
+@Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 @Builder
 @Entity
@@ -18,10 +18,10 @@ public class Associate {
     @Column(nullable = false)
     private String name;
 
-    @Column(updatable = false, nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String cpf;
 
-    public void update(AssociateRequestDTO associateRequestDTO) {
-        this.name = associateRequestDTO.getName();
+    public void update(UpdateAssociateDTO updateAssociateDTO) {
+        this.name = updateAssociateDTO.getName();
     }
 }

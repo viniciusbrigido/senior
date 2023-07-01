@@ -1,17 +1,21 @@
 package com.brigido.senior.service;
 
-import com.brigido.senior.dto.VoteRequestDTO;
-import com.brigido.senior.dto.VoteResponseDTO;
+import com.brigido.senior.dto.query.ResponseAssociateVoteDTO;
+import com.brigido.senior.dto.query.VotesPerScheduleFilterDTO;
+import com.brigido.senior.dto.save.SaveVoteDTO;
+import com.brigido.senior.dto.response.ResponseVoteDTO;
+import com.brigido.senior.dto.update.UpdateVoteDTO;
 import com.brigido.senior.entity.Vote;
 import java.util.List;
 import java.util.UUID;
 
 public interface VoteService {
 
-    VoteResponseDTO findByIdDTO(UUID id);
+    ResponseVoteDTO findByIdDTO(UUID id);
     Vote findById(UUID id);
-    VoteResponseDTO save(VoteRequestDTO voteRequestDTO);
-    List<VoteResponseDTO> findAll();
-    VoteResponseDTO update(UUID id, VoteRequestDTO voteRequestDTO);
+    ResponseVoteDTO save(SaveVoteDTO saveVoteDTO);
+    List<ResponseVoteDTO> findAll();
+    ResponseVoteDTO update(UpdateVoteDTO updateVoteDTO);
     void delete(UUID id);
+    List<ResponseAssociateVoteDTO> findVotesPerSchedule(VotesPerScheduleFilterDTO votesPerScheduleFilterDTO);
 }

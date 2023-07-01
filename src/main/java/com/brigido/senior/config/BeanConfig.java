@@ -1,6 +1,7 @@
 package com.brigido.senior.config;
 
 import org.springframework.context.annotation.Configuration;
+import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -15,7 +16,14 @@ public class BeanConfig {
 
     @Bean
     public ModelMapper modelMapper() {
-        return new ModelMapper();
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+        return modelMapper;
+    }
+
+    @Bean
+    public Gson gson() {
+        return new Gson();
     }
 
     @Bean
