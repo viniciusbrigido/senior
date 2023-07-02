@@ -1,7 +1,6 @@
 package com.brigido.senior.service.impl;
 
-import com.brigido.senior.dto.query.ResponseAssociateVoteDTO;
-import com.brigido.senior.dto.query.VotesPerScheduleFilterDTO;
+import com.brigido.senior.dto.query.*;
 import com.brigido.senior.dto.save.SaveVoteDTO;
 import com.brigido.senior.dto.response.ResponseVoteDTO;
 import com.brigido.senior.dto.update.UpdateVoteDTO;
@@ -92,7 +91,7 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public List<ResponseAssociateVoteDTO> findVotesPerSchedule(VotesPerScheduleFilterDTO votesPerScheduleFilterDTO) {
+    public VotesPerScheduleDTO findVotesPerSchedule(VotesPerScheduleFilterDTO votesPerScheduleFilterDTO) {
         return voteRepository.findVotesPerSchedule(votesPerScheduleFilterDTO);
     }
 

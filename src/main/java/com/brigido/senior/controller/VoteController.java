@@ -1,5 +1,7 @@
 package com.brigido.senior.controller;
 
+import com.brigido.senior.dto.query.VotesPerScheduleDTO;
+import com.brigido.senior.dto.query.VotesPerScheduleFilterDTO;
 import com.brigido.senior.dto.response.ResponseVoteDTO;
 import com.brigido.senior.dto.save.SaveVoteDTO;
 import com.brigido.senior.dto.update.UpdateVoteDTO;
@@ -44,5 +46,10 @@ public class VoteController {
     @GetMapping
     public ResponseEntity<List<ResponseVoteDTO>> findAll() {
         return ResponseEntity.ok(voteService.findAll());
+    }
+
+    @GetMapping("find-votes-per-schedule")
+    public ResponseEntity<VotesPerScheduleDTO> findVotesPerSchedule(@RequestBody VotesPerScheduleFilterDTO votesPerScheduleFilterDTO) {
+        return ResponseEntity.ok(voteService.findVotesPerSchedule(votesPerScheduleFilterDTO));
     }
 }

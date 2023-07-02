@@ -1,7 +1,6 @@
 package com.brigido.senior.service;
 
-import com.brigido.senior.dto.query.ResponseAssociateVoteDTO;
-import com.brigido.senior.dto.query.VotesPerScheduleFilterDTO;
+import com.brigido.senior.dto.query.*;
 import com.brigido.senior.dto.save.SaveVoteDTO;
 import com.brigido.senior.dto.response.ResponseVoteDTO;
 import com.brigido.senior.dto.update.UpdateVoteDTO;
@@ -17,5 +16,5 @@ public interface VoteService {
     List<ResponseVoteDTO> findAll();
     ResponseVoteDTO update(UpdateVoteDTO updateVoteDTO);
     void delete(UUID id);
-    List<ResponseAssociateVoteDTO> findVotesPerSchedule(VotesPerScheduleFilterDTO votesPerScheduleFilterDTO);
+    VotesPerScheduleDTO findVotesPerSchedule(VotesPerScheduleFilterDTO votesPerScheduleFilterDTO);
 }

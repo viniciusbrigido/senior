@@ -8,19 +8,32 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import java.util.List;
 import static java.util.Objects.*;
 
 public class VoteRepositoryCustomImpl implements VoteRepositoryCustom {
 
     private final QVote vote = QVote.vote;
+    private final QSchedule schedule = QSchedule.schedule;
 
     @PersistenceContext
     private EntityManager em;
 
     @Override
-    public List<ResponseAssociateVoteDTO> findVotesPerSchedule(VotesPerScheduleFilterDTO votesPerScheduleFilterDTO) {
-        JPAQuery<ResponseAssociateVoteDTO> query =  new JPAQueryFactory(em)
+    public VotesPerScheduleDTO findVotesPerSchedule(VotesPerScheduleFilterDTO votesPerScheduleFilterDTO) {
+        VotesPerScheduleDTO votesPerScheduleDTO = new JPAQueryFactory(em)
+                .select(Projections.constructor(VotesPerScheduleDTO.class,
+                                schedule.id,
+                                schedule.title,
+                                schedule.description,
+                                schedule.initDate,
+                                schedule.endDate
+                        )
+                )
+                .from(schedule)
+                .where(schedule.id.eq(votesPerScheduleFilterDTO.getScheduleId()))
+                .fetchOne();
+
+        JPAQuery<ResponseAssociateVoteDTO> queryVotes =  new JPAQueryFactory(em)
                 .select(Projections.constructor(ResponseAssociateVoteDTO.class,
                             vote.associate.id,
                             vote.associate.name,
@@ -31,9 +44,11 @@ public class VoteRepositoryCustomImpl implements VoteRepositoryCustom {
                 .where(vote.schedule.id.eq(votesPerScheduleFilterDTO.getScheduleId()));
 
         if (nonNull(votesPerScheduleFilterDTO.getVoteEnum())) {
-            query.where(vote.voteEnum.eq(votesPerScheduleFilterDTO.getVoteEnum()));
+            queryVotes.where(vote.voteEnum.eq(votesPerScheduleFilterDTO.getVoteEnum()));
         }
 
-        return query.fetch();
+        votesPerScheduleDTO.setAssociates(queryVotes.fetch());
+
+        return votesPerScheduleDTO;
     }
 }
