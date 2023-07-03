@@ -1,5 +1,7 @@
 package com.brigido.senior.service.impl;
 
+import com.brigido.senior.dto.query.ScheduleResultDTO;
+import com.brigido.senior.dto.query.ScheduleResultFilterDTO;
 import com.brigido.senior.dto.save.SaveScheduleDTO;
 import com.brigido.senior.dto.response.ResponseScheduleDTO;
 import com.brigido.senior.dto.update.UpdateScheduleDTO;
@@ -57,6 +59,11 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public void delete(UUID id) {
         scheduleRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ScheduleResultDTO> findScheduleResults(ScheduleResultFilterDTO scheduleResultFilterDTO) {
+        return scheduleRepository.findScheduleResults(scheduleResultFilterDTO);
     }
 
     private ResponseScheduleDTO toResponseDto(Schedule schedule) {

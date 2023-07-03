@@ -23,6 +23,9 @@ public class DataInitializer {
 
     @PostConstruct
     public void initData() {
+        //Validar mais de um voto por pessoa
+        //Validar exclusao de foreignKey
+
         ResponseAssociateDTO associate1 = associateService.save(
                 SaveAssociateDTO
                     .builder()
@@ -45,12 +48,11 @@ public class DataInitializer {
                     .build());
 
         ResponseScheduleDTO scheduleRequestDTO = scheduleService.save(SaveScheduleDTO.builder()
-                .title("Votação")
+                .title("Schedule")
                 .description("Teste")
                 .minutes(25)
                 .build());
 
-        //Validar mais de um voto por pessoa
 
         voteService.save(SaveVoteDTO.builder()
                 .scheduleId(scheduleRequestDTO.getId())
@@ -67,6 +69,48 @@ public class DataInitializer {
         voteService.save(SaveVoteDTO.builder()
                 .scheduleId(scheduleRequestDTO.getId())
                 .associateId(associate3.getId())
+                .voteEnum(VoteEnum.NAO)
+                .build());
+
+        ResponseScheduleDTO scheduleRequestDTO2 = scheduleService.save(SaveScheduleDTO.builder()
+                .title("Schedule Não")
+                .description("Teste")
+                .minutes(25)
+                .build());
+
+        voteService.save(SaveVoteDTO.builder()
+                .scheduleId(scheduleRequestDTO2.getId())
+                .associateId(associate1.getId())
+                .voteEnum(VoteEnum.SIM)
+                .build());
+
+        voteService.save(SaveVoteDTO.builder()
+                .scheduleId(scheduleRequestDTO2.getId())
+                .associateId(associate2.getId())
+                .voteEnum(VoteEnum.NAO)
+                .build());
+
+        voteService.save(SaveVoteDTO.builder()
+                .scheduleId(scheduleRequestDTO2.getId())
+                .associateId(associate3.getId())
+                .voteEnum(VoteEnum.NAO)
+                .build());
+
+        ResponseScheduleDTO scheduleRequestDTO3 = scheduleService.save(SaveScheduleDTO.builder()
+                .title("Schedule TIE")
+                .description("Teste")
+                .minutes(25)
+                .build());
+
+        voteService.save(SaveVoteDTO.builder()
+                .scheduleId(scheduleRequestDTO3.getId())
+                .associateId(associate1.getId())
+                .voteEnum(VoteEnum.SIM)
+                .build());
+
+        voteService.save(SaveVoteDTO.builder()
+                .scheduleId(scheduleRequestDTO3.getId())
+                .associateId(associate2.getId())
                 .voteEnum(VoteEnum.NAO)
                 .build());
 

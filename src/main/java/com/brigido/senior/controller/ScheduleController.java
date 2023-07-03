@@ -1,5 +1,7 @@
 package com.brigido.senior.controller;
 
+import com.brigido.senior.dto.query.ScheduleResultDTO;
+import com.brigido.senior.dto.query.ScheduleResultFilterDTO;
 import com.brigido.senior.dto.save.SaveScheduleDTO;
 import com.brigido.senior.dto.response.ResponseScheduleDTO;
 import com.brigido.senior.dto.update.UpdateScheduleDTO;
@@ -43,5 +45,10 @@ public class ScheduleController {
     @GetMapping
     public ResponseEntity<List<ResponseScheduleDTO>> findAll() {
         return ResponseEntity.ok(scheduleService.findAll());
+    }
+
+    @GetMapping("find-schedule-results")
+    public ResponseEntity<List<ScheduleResultDTO>> findScheduleResults(@RequestBody ScheduleResultFilterDTO scheduleResultFilterDTO) {
+        return ResponseEntity.ok(scheduleService.findScheduleResults(scheduleResultFilterDTO));
     }
 }

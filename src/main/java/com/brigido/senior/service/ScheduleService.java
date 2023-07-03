@@ -1,5 +1,7 @@
 package com.brigido.senior.service;
 
+import com.brigido.senior.dto.query.ScheduleResultDTO;
+import com.brigido.senior.dto.query.ScheduleResultFilterDTO;
 import com.brigido.senior.dto.save.SaveScheduleDTO;
 import com.brigido.senior.dto.response.ResponseScheduleDTO;
 import com.brigido.senior.dto.update.UpdateScheduleDTO;
@@ -15,4 +17,5 @@ public interface ScheduleService {
     List<ResponseScheduleDTO> findAll();
     ResponseScheduleDTO update(UpdateScheduleDTO updateScheduleDTO);
     void delete(UUID id);
+    List<ScheduleResultDTO> findScheduleResults(ScheduleResultFilterDTO scheduleResultFilterDTO);
 }

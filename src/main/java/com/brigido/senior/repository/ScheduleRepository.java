@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface ScheduleRepository extends JpaRepository<Schedule, UUID> {
+public interface ScheduleRepository extends JpaRepository<Schedule, UUID>, ScheduleRepositoryCustom {
 }

@@ -81,6 +81,7 @@ public class VoteServiceImpl implements VoteService {
     @Override
     public ResponseVoteDTO update(UpdateVoteDTO updateVoteDTO) {
         Vote vote = findById(updateVoteDTO.getId());
+        validateSchedule(vote.getSchedule());
         vote.update(updateVoteDTO);
         return toResponseDto(voteRepository.save(vote));
     }
