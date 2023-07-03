@@ -58,9 +58,9 @@ public class VoteServiceImpl implements VoteService {
     }
 
     private void validateAssociate(Associate associate) {
-        if (!isCpfWithPermissionToVote(associate.getCpf())) {
-            throw new InvalidCpfException("CPF without voting permission.");
-        }
+//        if (!isCpfWithPermissionToVote(associate.getCpf())) {
+//            throw new InvalidCpfException("CPF without voting permission.");
+//        }
     }
 
     private void validateSchedule(Schedule schedule) {
