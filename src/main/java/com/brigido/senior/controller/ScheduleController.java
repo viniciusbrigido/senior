@@ -26,6 +26,11 @@ public class ScheduleController {
         return ResponseEntity.ok(scheduleService.save(saveScheduleDTO));
     }
 
+    @PostMapping("save-all")
+    public ResponseEntity<List<ResponseScheduleDTO> > saveAll(@RequestBody List<SaveScheduleDTO> saveScheduleDTOList) {
+        return ResponseEntity.ok(scheduleService.saveAll(saveScheduleDTOList));
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<ResponseScheduleDTO> findById(@PathVariable UUID id) {
         return ResponseEntity.ok(scheduleService.findByIdDTO(id));

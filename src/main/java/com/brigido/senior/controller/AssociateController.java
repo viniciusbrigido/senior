@@ -24,6 +24,11 @@ public class AssociateController {
         return ResponseEntity.ok(associateService.save(saveAssociateDTO));
     }
 
+    @PostMapping("save-all")
+    public ResponseEntity<List<ResponseAssociateDTO>> saveAll(@RequestBody List<SaveAssociateDTO> saveAssociateDTOList) {
+        return ResponseEntity.ok(associateService.saveAll(saveAssociateDTOList));
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<ResponseAssociateDTO> findById(@PathVariable UUID id) {
         return ResponseEntity.ok(associateService.findByIdDTO(id));

@@ -9,14 +9,15 @@ import com.brigido.senior.exception.*;
 import com.brigido.senior.repository.VoteRepository;
 import com.brigido.senior.rest.CpfRest;
 import com.brigido.senior.service.*;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import static java.util.stream.Collectors.toList;
 
+@Slf4j
 @Service
 public class VoteServiceImpl implements VoteService {
 
@@ -32,8 +33,8 @@ public class VoteServiceImpl implements VoteService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    private CpfRest cpfRest;
+//    @Autowired
+//    private CpfRest cpfRest;
 
     @Override
     public ResponseVoteDTO findByIdDTO(UUID id) {
@@ -62,10 +63,25 @@ public class VoteServiceImpl implements VoteService {
         return toResponseDto(voteRepository.save(vote));
     }
 
-    private void validateAssociate(Associate associate) {
-        if (!cpfRest.isCpfWithPermissionToVote(associate.getCpf())) {
-            throw new InvalidCpfException("CPF without voting permission.");
+    @Override
+    public List<ResponseVoteDTO> saveAll(List<SaveVoteDTO> saveVoteDTOList) {
+        List<ResponseVoteDTO> responseVoteDTOList = new ArrayList<>();
+        for (SaveVoteDTO saveVoteDTO : saveVoteDTOList) {
+            try {
+                responseVoteDTOList.add(save(saveVoteDTO));
+            } catch (Exception e) {
+                log.error("Vote %s on %s Schedule and %s Associate Invalid. Reason: %s."
+                        .formatted(saveVoteDTO.getVoteEnum(), saveVoteDTO.getScheduleId(),
+                                saveVoteDTO.getAssociateId(), e.getMessage()));
+            }
         }
+        return responseVoteDTOList;
+    }
+
+    private void validateAssociate(Associate associate) {
+//        if (!cpfRest.isCpfWithPermissionToVote(associate.getCpf())) {
+//            throw new InvalidCpfException("CPF without voting permission.");
+//        }
     }
 
     private void validateAssociateVote(UUID associateId, UUID scheduleId) {

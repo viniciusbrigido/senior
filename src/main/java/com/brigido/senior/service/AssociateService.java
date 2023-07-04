@@ -12,6 +12,7 @@ public interface AssociateService {
     ResponseAssociateDTO findByIdDTO(UUID id);
     Associate findById(UUID id);
     ResponseAssociateDTO save(SaveAssociateDTO saveAssociateDTO);
+    List<ResponseAssociateDTO> saveAll(List<SaveAssociateDTO> saveAssociateDTOList);
     List<ResponseAssociateDTO> findAll();
     ResponseAssociateDTO update(UpdateAssociateDTO updateAssociateDTO);
     void delete(UUID id);

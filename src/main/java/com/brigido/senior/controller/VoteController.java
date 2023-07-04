@@ -7,7 +7,6 @@ import com.brigido.senior.dto.save.SaveVoteDTO;
 import com.brigido.senior.dto.update.UpdateVoteDTO;
 import com.brigido.senior.service.VoteService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +22,13 @@ public class VoteController {
     private VoteService voteService;
 
     @PostMapping("save")
-    public ResponseEntity<ResponseVoteDTO> save(@RequestBody @Valid SaveVoteDTO saveVoteDTO) {
+    public ResponseEntity<ResponseVoteDTO> save(@RequestBody SaveVoteDTO saveVoteDTO) {
         return ResponseEntity.ok(voteService.save(saveVoteDTO));
+    }
+
+    @PostMapping("save-all")
+    public ResponseEntity<List<ResponseVoteDTO>> saveAll(@RequestBody List<SaveVoteDTO> saveVoteDTOList) {
+        return ResponseEntity.ok(voteService.saveAll(saveVoteDTOList));
     }
 
     @GetMapping("{id}")

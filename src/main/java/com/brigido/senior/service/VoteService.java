@@ -13,6 +13,7 @@ public interface VoteService {
     ResponseVoteDTO findByIdDTO(UUID id);
     Vote findById(UUID id);
     ResponseVoteDTO save(SaveVoteDTO saveVoteDTO);
+    List<ResponseVoteDTO> saveAll(List<SaveVoteDTO> saveVoteDTOList);
     List<ResponseVoteDTO> findAll();
     ResponseVoteDTO update(UpdateVoteDTO updateVoteDTO);
     void delete(UUID id);

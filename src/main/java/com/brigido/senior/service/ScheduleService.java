@@ -14,6 +14,7 @@ public interface ScheduleService {
     ResponseScheduleDTO findByIdDTO(UUID id);
     Schedule findById(UUID id);
     ResponseScheduleDTO save(SaveScheduleDTO saveScheduleDTO);
+    List<ResponseScheduleDTO> saveAll(List<SaveScheduleDTO> saveScheduleDTOList);
     List<ResponseScheduleDTO> findAll();
     ResponseScheduleDTO update(UpdateScheduleDTO updateScheduleDTO);
     void delete(UUID id);

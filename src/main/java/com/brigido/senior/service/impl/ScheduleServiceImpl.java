@@ -9,12 +9,14 @@ import com.brigido.senior.entity.Schedule;
 import com.brigido.senior.exception.NotFoundEntityException;
 import com.brigido.senior.repository.ScheduleRepository;
 import com.brigido.senior.service.ScheduleService;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
 import static java.util.stream.Collectors.toList;
 
+@Slf4j
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
 
@@ -39,6 +41,19 @@ public class ScheduleServiceImpl implements ScheduleService {
     public ResponseScheduleDTO save(SaveScheduleDTO saveScheduleDTO) {
         Schedule schedule = modelMapper.map(saveScheduleDTO, Schedule.class);
         return toResponseDto(scheduleRepository.save(schedule));
+    }
+
+    @Override
+    public List<ResponseScheduleDTO> saveAll(List<SaveScheduleDTO> saveScheduleDTOList) {
+        List<ResponseScheduleDTO> responseScheduleDTOList = new ArrayList<>();
+        for (SaveScheduleDTO saveScheduleDTO : saveScheduleDTOList) {
+            try {
+                responseScheduleDTOList.add(save(saveScheduleDTO));
+            } catch (Exception e) {
+                log.error("Schedule %s Invalid. Reason: %s.".formatted(saveScheduleDTO.getTitle(), e.getMessage()));
+            }
+        }
+        return responseScheduleDTOList;
     }
 
     @Override

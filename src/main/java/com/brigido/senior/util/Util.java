@@ -10,7 +10,6 @@ public class Util {
             cpfValidator.assertValid(cpf);
             return true;
         } catch(Exception e) {
-            e.printStackTrace();
             return false;
         }
     }

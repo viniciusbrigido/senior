@@ -11,11 +11,12 @@ import com.brigido.senior.service.AssociateService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import static com.brigido.senior.util.Util.*;
 import static java.util.stream.Collectors.toList;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class AssociateServiceImpl implements AssociateService {
 
@@ -41,6 +42,19 @@ public class AssociateServiceImpl implements AssociateService {
         Associate associate = modelMapper.map(saveAssociateDTO, Associate.class);
         validateCpfAssociate(associate.getCpf());
         return toResponseDto(associateRepository.save(associate));
+    }
+
+    @Override
+    public List<ResponseAssociateDTO> saveAll(List<SaveAssociateDTO> saveAssociateDTOList) {
+        List<ResponseAssociateDTO> responseAssociateDTOList = new ArrayList<>();
+        for (SaveAssociateDTO saveAssociateDTO : saveAssociateDTOList) {
+            try {
+                responseAssociateDTOList.add(save(saveAssociateDTO));
+            } catch (Exception e) {
+                log.error("Associate %s Invalid. Reason: %s.".formatted(saveAssociateDTO.getName(), e.getMessage()));
+            }
+        }
+        return responseAssociateDTOList;
     }
 
     private void validateCpfAssociate(String cpf) {
