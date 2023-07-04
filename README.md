@@ -11,6 +11,10 @@ A aplicação tem 3 principais entidades.
 
 #
 
+### Implementado testes utilizando `h2`, `junit` e `assertj`.
+
+#
+
 ### Utilizado **Postman** para testar a aplicação.
 Coleção de endpoints no postman [Aqui](src/main/resources/Pauta.postman_collection.json)
 
@@ -60,3 +64,9 @@ Coleção de endpoints no postman [Aqui](src/main/resources/Pauta.postman_collecti
 
 3) Versionamento da API
    - Criado versionamento (v1) para os controllers das entidades.
+
+
+## Observações
+
+- Para gerar as classes QEntity (entidades utilizadas pela querydsl) é necessário executar o comando `mvn clean install`.
+- Caso a varíavel `currentDate` não esteja configurada no Postman, será necessário cadastrá-la na aba 'Pre-request Script' com o valor de `pm.environment.set('currentDate', new Date());`.
