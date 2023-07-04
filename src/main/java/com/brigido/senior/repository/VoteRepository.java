@@ -7,4 +7,6 @@ import java.util.UUID;
 
 @Repository
 public interface VoteRepository extends JpaRepository<Vote, UUID>, VoteRepositoryCustom {
+
+    boolean existsByAssociateIdAndScheduleId(UUID associateId, UUID scheduleId);
 }

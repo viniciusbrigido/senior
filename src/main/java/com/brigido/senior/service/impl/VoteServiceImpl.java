@@ -7,6 +7,7 @@ import com.brigido.senior.dto.update.UpdateVoteDTO;
 import com.brigido.senior.entity.*;
 import com.brigido.senior.exception.*;
 import com.brigido.senior.repository.VoteRepository;
+import com.brigido.senior.rest.CpfRest;
 import com.brigido.senior.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-import static com.brigido.senior.rest.CpfRest.*;
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -31,6 +31,9 @@ public class VoteServiceImpl implements VoteService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private CpfRest cpfRest;
 
     @Override
     public ResponseVoteDTO findByIdDTO(UUID id) {
@@ -54,13 +57,21 @@ public class VoteServiceImpl implements VoteService {
         validateSchedule(schedule);
         vote.setSchedule(schedule);
 
+        validateAssociateVote(saveVoteDTO.getAssociateId(), saveVoteDTO.getScheduleId());
+
         return toResponseDto(voteRepository.save(vote));
     }
 
     private void validateAssociate(Associate associate) {
-//        if (!isCpfWithPermissionToVote(associate.getCpf())) {
-//            throw new InvalidCpfException("CPF without voting permission.");
-//        }
+        if (!cpfRest.isCpfWithPermissionToVote(associate.getCpf())) {
+            throw new InvalidCpfException("CPF without voting permission.");
+        }
+    }
+
+    private void validateAssociateVote(UUID associateId, UUID scheduleId) {
+        if (voteRepository.existsByAssociateIdAndScheduleId(associateId, scheduleId)) {
+            throw new AssociateHasAlreadyVotedException("The Associate has already voted for this Schedule.");
+        }
     }
 
     private void validateSchedule(Schedule schedule) {

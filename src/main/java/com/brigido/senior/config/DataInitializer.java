@@ -23,9 +23,6 @@ public class DataInitializer {
 
     @PostConstruct
     public void initData() {
-        //Validar mais de um voto por pessoa
-        //Validar exclusao de foreignKey
-
         ResponseAssociateDTO associate1 = associateService.save(
                 SaveAssociateDTO
                     .builder()
@@ -113,8 +110,5 @@ public class DataInitializer {
                 .associateId(associate2.getId())
                 .voteEnum(VoteEnum.NAO)
                 .build());
-
-        associateService.findAll();
-        scheduleService.findAll();
     }
 }

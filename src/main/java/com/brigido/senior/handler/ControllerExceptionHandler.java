@@ -1,6 +1,7 @@
 package com.brigido.senior.handler;
 
 import com.brigido.senior.exception.*;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -15,22 +16,22 @@ import static java.util.Objects.*;
 @EnableWebMvc
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(NotFoundEntityException.class)
-    public ResponseEntity<Object> handleNotFoundEntity(NotFoundEntityException notFoundException) {
+    @ExceptionHandler({
+            NotFoundEntityException.class,
+            InvalidCpfException.class,
+            ScheduleDateExpiredException.class,
+            AssociateHasAlreadyVotedException.class
+    })
+    public ResponseEntity<Object> handleNotFoundEntity(RuntimeException runtimeException) {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        return new ResponseEntity<>(getErrorResponse(notFoundException.getMessage(), status), status);
+        return new ResponseEntity<>(getErrorResponse(runtimeException.getMessage(), status), status);
     }
 
-    @ExceptionHandler(InvalidCpfException.class)
-    public ResponseEntity<Object> handleInvalidCpf(InvalidCpfException invalidCpfException) {
-        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        return new ResponseEntity<>(getErrorResponse(invalidCpfException.getMessage(), status), status);
-    }
-
-    @ExceptionHandler(ScheduleDateExpiredException.class)
-    public ResponseEntity<Object> handleScheduleDateExpired(ScheduleDateExpiredException scheduleDateExpiredException) {
-        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        return new ResponseEntity<>(getErrorResponse(scheduleDateExpiredException.getMessage(), status), status);
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorResponse> handleForeignKeyViolation(DataIntegrityViolationException dataIntegrityViolationException) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        String message = "The table cannot be deleted because it has references in another table.";
+        return new ResponseEntity<>(getErrorResponse(message, status), status);
     }
 
     @Override
