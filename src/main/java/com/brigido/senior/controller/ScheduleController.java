@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "/v1/schedule")
+@RequestMapping(value = "/api/v1/schedule")
 @Tag(name = "Schedule")
 public class ScheduleController {
 

@@ -25,11 +25,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/v1/associate/save",
+							"raw": "{{url}}/api/v1/associate/save",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"associate",
 								"save"
@@ -53,11 +54,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/v1/associate/save-all",
+							"raw": "{{url}}/api/v1/associate/save-all",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"associate",
 								"save-all"
@@ -72,11 +74,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/v1/associate/",
+							"raw": "{{url}}/api/v1/associate/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"associate",
 								""
@@ -91,11 +94,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/v1/associate",
+							"raw": "{{url}}/api/v1/associate",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"associate"
 							]
@@ -118,11 +122,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/v1/associate/update",
+							"raw": "{{url}}/api/v1/associate/update",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"associate",
 								"update"
@@ -137,11 +142,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/v1/associate/",
+							"raw": "{{url}}/api/v1/associate/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"associate",
 								""
@@ -170,11 +176,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/v1/schedule/save",
+							"raw": "{{url}}/api/v1/schedule/save",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"schedule",
 								"save"
@@ -198,11 +205,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/v1/schedule/save-all",
+							"raw": "{{url}}/api/v1/schedule/save-all",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"schedule",
 								"save-all"
@@ -217,11 +225,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/v1/schedule/",
+							"raw": "{{url}}/api/v1/schedule/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"schedule",
 								""
@@ -236,11 +245,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/v1/schedule",
+							"raw": "{{url}}/api/v1/schedule",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"schedule"
 							]
@@ -263,11 +273,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/v1/schedule/update",
+							"raw": "{{url}}/api/v1/schedule/update",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"schedule",
 								"update"
@@ -282,11 +293,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/v1/schedule/",
+							"raw": "{{url}}/api/v1/schedule/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"schedule",
 								""
@@ -313,11 +325,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/v1/schedule/find-schedule-results",
+							"raw": "{{url}}/api/v1/schedule/find-schedule-results",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"schedule",
 								"find-schedule-results"
@@ -346,11 +359,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/v1/vote/save",
+							"raw": "{{url}}/api/v1/vote/save",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"vote",
 								"save"
@@ -374,11 +388,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/v1/vote/save-all",
+							"raw": "{{url}}/api/v1/vote/save-all",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"vote",
 								"save-all"
@@ -393,11 +408,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/v1/vote/",
+							"raw": "{{url}}/api/v1/vote/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"vote",
 								""
@@ -424,11 +440,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/v1/vote/find-votes-per-schedule",
+							"raw": "{{url}}/api/v1/vote/find-votes-per-schedule",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"vote",
 								"find-votes-per-schedule"
@@ -443,11 +460,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/v1/vote",
+							"raw": "{{url}}/api/v1/vote",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"vote"
 							]
@@ -470,11 +488,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/v1/vote/update",
+							"raw": "{{url}}/api/v1/vote/update",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"vote",
 								"update"
@@ -489,11 +508,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/v1/vote/",
+							"raw": "{{url}}/api/v1/vote/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"v1",
 								"vote",
 								""

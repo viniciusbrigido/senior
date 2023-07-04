@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "/v1/vote")
+@RequestMapping(value = "/api/v1/vote")
 @Tag(name = "Vote")
 public class VoteController {
 
