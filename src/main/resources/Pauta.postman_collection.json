@@ -1,0 +1,554 @@
+{
+	"info": {
+		"_postman_id": "f51960c0-1784-4a0a-89d4-51606f55c059",
+		"name": "Pauta",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21757039",
+		"_collection_link": "https://dark-star-234444.postman.co/workspace/Pessoal~397d4673-6bc1-474d-8981-b430501ee45c/collection/21757039-f51960c0-1784-4a0a-89d4-51606f55c059?action=share&creator=21757039&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Associate",
+			"item": [
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Vinicius Brigido\",\r\n    \"cpf\": \"1111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/associate/save",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"associate",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "saveAll",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"name\": \"Vinicius Brigido\",\r\n        \"cpf\": \"1111\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/associate/save-all",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"associate",
+								"save-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/associate/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"associate",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/associate",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"associate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"8e24cda6-f6c0-4a1d-a756-9630d6e6c9c4\",\r\n    \"name\": \"Teste\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/associate/update",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"associate",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/associate/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"associate",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Scredule",
+			"item": [
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n\r\n    \"title\" : \"Pauta 1\",\r\n    \"description\" : \"Pauta com desc\",\r\n    \"initDate\" : \"{{currentDate}}\",\r\n    \"minutes\" : \"4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/schedule/save",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"schedule",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "saveAll",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"title\" : \"Pauta 1\",\r\n        \"description\" : \"Pauta com desc\",\r\n        \"initDate\" : \"{{currentDate}}\",\r\n        \"minutes\" : \"4\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/schedule/save-all",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"schedule",
+								"save-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/schedule/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"schedule",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/schedule",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"a9111e5e-116f-45a2-8eee-bff99c9574cc\",\r\n    \"title\": \"Pauta 1231\",\r\n    \"description\": \"Teste de desc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/schedule/update",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"schedule",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/schedule/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"schedule",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findScheduleResults",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/schedule/find-schedule-results",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"schedule",
+								"find-schedule-results"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vote",
+			"item": [
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"vote\": \"SIM\",\r\n    \"scheduleId\": \"903c6985-c806-4b39-b0e2-c7f4a8ea26dc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/vote/save",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"vote",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "saveAll",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"vote\": \"SIM\",\r\n        \"scheduleId\": \"903c6985-c806-4b39-b0e2-c7f4a8ea26dc\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/vote/save-all",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"vote",
+								"save-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/vote/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"vote",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findVotesPerSchedule",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scheduleId\": \"3ea795fb-6604-42db-b3b3-4807d2f81671\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/vote/find-votes-per-schedule",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"vote",
+								"find-votes-per-schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/vote",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"vote"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"51f6b5d8-2edb-496f-bcc9-2815d54c9acb\",\r\n    \"vote\": \"NAO\",\r\n    \"initDate\": \"{{currentDate}}\",\r\n    \"minutes\": \"\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/vote/update",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"vote",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/vote/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"vote",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CPF",
+			"item": [
+				{
+					"name": "cpfValidation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://user-info.herokuapp.com/users/62289608068",
+							"protocol": "https",
+							"host": [
+								"user-info",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"62289608068"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.environment.set('currentDate', new Date());"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

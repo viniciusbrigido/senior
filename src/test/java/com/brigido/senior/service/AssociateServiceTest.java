@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringRunner;
+import java.util.List;
 import java.util.UUID;
 import static org.assertj.core.api.Assertions.*;
 
@@ -26,6 +27,16 @@ public class AssociateServiceTest extends BaseTests {
         ResponseAssociateDTO associate = associateService.save(getSaveAssociateDTO());
         assertThat(associate).isNotNull();
         assertThat(associate.getId()).isNotNull();
+    }
+
+    @Test
+    public void saveAssociateListTest() {
+        List<ResponseAssociateDTO> responseAssociateDTOList = associateService.saveAll(List.of(getSaveAssociateDTO(), getSaveAssociate2DTO()));
+
+        responseAssociateDTOList.forEach(associate -> {
+            assertThat(associate).isNotNull();
+            assertThat(associate.getId()).isNotNull();
+        });
     }
 
     @Test
@@ -57,6 +68,11 @@ public class AssociateServiceTest extends BaseTests {
     }
 
     @Test
+    public void findAllTest() {
+        assertThatCode(() -> associateService.findAll()).doesNotThrowAnyException();
+    }
+
+    @Test
     public void updateAssociateTest() {
         ResponseAssociateDTO associate = associateService.save(getSaveAssociateDTO());
         String newName = "New Associate";
@@ -73,6 +89,13 @@ public class AssociateServiceTest extends BaseTests {
         return SaveAssociateDTO.builder()
                 .name("Associate")
                 .cpf("27459443638")
+                .build();
+    }
+
+    private SaveAssociateDTO getSaveAssociate2DTO() {
+        return SaveAssociateDTO.builder()
+                .name("Associate 2")
+                .cpf("43125843383")
                 .build();
     }
 

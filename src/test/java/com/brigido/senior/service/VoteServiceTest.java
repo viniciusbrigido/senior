@@ -1,6 +1,8 @@
 package com.brigido.senior.service;
 
 import com.brigido.senior.BaseTests;
+import com.brigido.senior.dto.query.VotesPerScheduleDTO;
+import com.brigido.senior.dto.query.VotesPerScheduleFilterDTO;
 import com.brigido.senior.dto.response.*;
 import com.brigido.senior.dto.save.*;
 import com.brigido.senior.dto.update.UpdateVoteDTO;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 import static com.brigido.senior.enumeration.VoteEnum.*;
 import static org.assertj.core.api.Assertions.*;
@@ -39,6 +42,16 @@ public class VoteServiceTest extends BaseTests {
     }
 
     @Test
+    public void saveVoteListTest() {
+        List<ResponseVoteDTO> responseVoteDTOList = voteService.saveAll(List.of(getSaveVoteNaoDTO(), getSaveVote2DTO()));
+
+        responseVoteDTOList.forEach(vote -> {
+            assertThat(vote).isNotNull();
+            assertThat(vote.getId()).isNotNull();
+        });
+    }
+
+    @Test
     public void deleteVoteTest() {
         ResponseVoteDTO vote = voteService.save(getSaveVoteNaoDTO());
         assertThatCode(() -> voteService.delete(vote.getId())).doesNotThrowAnyException();
@@ -54,6 +67,27 @@ public class VoteServiceTest extends BaseTests {
     public void findVoteByIdNotFoundTest() {
         assertThatThrownBy(() -> voteService.findById(UUID.randomUUID())).isInstanceOf(NotFoundEntityException.class);
     }
+
+    @Test
+    public void findAllTest() {
+        assertThatCode(() -> voteService.findAll()).doesNotThrowAnyException();
+    }
+
+    @Test
+    public void findVotesPerScheduleTest() {
+        ResponseVoteDTO vote = voteService.save(getSaveVoteNaoDTO());
+
+        VotesPerScheduleFilterDTO votesPerScheduleFilterDTO = VotesPerScheduleFilterDTO.builder()
+                .scheduleId(vote.getSchedule().getId())
+                .voteEnum(vote.getVoteEnum())
+                .build();
+        VotesPerScheduleDTO votesPerScheduleDTO = voteService.findVotesPerSchedule(votesPerScheduleFilterDTO);
+
+        assertThat(votesPerScheduleDTO).isNotNull();
+        assertThat(votesPerScheduleDTO.getAssociates()).isNotNull();
+        assertThat(votesPerScheduleDTO.getAssociates().isEmpty()).isFalse();
+    }
+
 
     @Test
     public void updateVoteTest() {
@@ -111,6 +145,33 @@ public class VoteServiceTest extends BaseTests {
         return SaveScheduleDTO.builder()
                 .title("Title")
                 .description("Desc")
+                .initDate(LocalDateTime.now().minusMinutes(100))
+                .minutes(1000)
+                .build();
+    }
+
+    private SaveVoteDTO getSaveVote2DTO() {
+        ResponseAssociateDTO associate = associateService.save(getSaveAssociate2DTO());
+        ResponseScheduleDTO schedule = scheduleService.save(getSaveSchedule2DTO());
+
+        return SaveVoteDTO.builder()
+                .voteEnum(SIM)
+                .associateId(associate.getId())
+                .scheduleId(schedule.getId())
+                .build();
+    }
+
+    private SaveAssociateDTO getSaveAssociate2DTO() {
+        return SaveAssociateDTO.builder()
+                .name("Associate 2")
+                .cpf("43125843383")
+                .build();
+    }
+
+    private SaveScheduleDTO getSaveSchedule2DTO() {
+        return SaveScheduleDTO.builder()
+                .title("Title 2")
+                .description("Desc 2")
                 .initDate(LocalDateTime.now().minusMinutes(100))
                 .minutes(1000)
                 .build();
